@@ -9,17 +9,22 @@ import (
 )
 
 func main() {
+	var url,value string
 
-	var input string
+	fmt.Scan(&url,&value)
 
-	fmt.Scan(&input)
+	crud(url, value)
+
+}
+
+func crud(link,options string) {
 
 	data := url.Values{
-		"title": {input},
-		"submit":     {"Отправить"},
+		"title":  {options},
+		"submit": {"Отправить"},
 	}
 
-	resp, err := http.PostForm("http://127.0.0.1:5000/", data)
+	resp, err := http.PostForm(link, data)
 
 	if err != nil {
 		log.Fatal(err)
@@ -30,5 +35,4 @@ func main() {
 	json.NewDecoder(resp.Body).Decode(&res)
 
 	fmt.Println(resp.StatusCode)
-
 }
